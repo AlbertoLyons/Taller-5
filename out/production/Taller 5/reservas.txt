@@ -1,0 +1,3 @@
+q,Ruben,Macaya,9788494551050,1984,Préstamo
+q,Ruben,Macaya,9788408070735,El código Da Vinci,Préstamo
+q,Ruben,Macaya,9788408070735,El código Da Vinci,Devolución
