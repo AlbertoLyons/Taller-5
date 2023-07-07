@@ -164,21 +164,21 @@ class LecturaArchivos {
 }
 
 SistemaImpl -|> Sistema
-SistemaImpl -left> LecturaArchivos : Lee archivos
-SistemaImpl --down> inicioSesion : Administra
-SistemaImpl --up> Usuario : Accede
-SistemaImpl --up> Libro : Accede
+SistemaImpl"1" -left> "1"LecturaArchivos : Lee archivos
+SistemaImpl"1" --down> "1"inicioSesion : Administra
+SistemaImpl"1" --up> "1"Usuario : Accede
+SistemaImpl"1" --up> "1"Libro : Accede
 
-inicioSesion --down> menuBiblioteca : Ingresa
-inicioSesion -up-> Usuario : Solicita datos
+inicioSesion"1" --down> "1"menuBiblioteca : Ingresa
+inicioSesion"1" -up-> "1..*"Usuario : Solicita datos
 
-menuBiblioteca --down> agregarLibro: Accede
-menuBiblioteca --down> buscarLibro : Accede
-menuBiblioteca -down> devolverLibro : Accede
-menuBiblioteca -down> prestarLibro : Accede
+menuBiblioteca"1" --down> "1"agregarLibro: Accede
+menuBiblioteca"1" --down> "1"buscarLibro : Accede
+menuBiblioteca"1" -down> "1"devolverLibro : Accede
+menuBiblioteca"1" -down> "1"prestarLibro : Accede
 
-agregarLibro --up> Libro : Agrega
+agregarLibro"1" --up> "1"Libro : Agrega
 
-devolverLibro -up> TransaccionLibro : Agrega transaccion
-prestarLibro -up> TransaccionLibro : Agrega transaccion
+devolverLibro"1" -up> "1"TransaccionLibro : Agrega transaccion
+prestarLibro"1" -up> "1"TransaccionLibro : Agrega transaccion
 @enduml
