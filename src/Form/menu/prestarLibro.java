@@ -72,7 +72,7 @@ public class prestarLibro extends JFrame {
                         String apellido = usuario.getApellido();
                         String titulo = aux.getTitulo();
                         instanciaInicio.transaccionPrestamo(rut,nombre,apellido,isbn,titulo);
-                        overwriteData(libros);
+                        overWriteData(libros);
                         JOptionPane.showMessageDialog(provideForm,"Prestamo realizado con exito","Prestamo valido",JOptionPane.INFORMATION_MESSAGE);
                         clear();
                     }
@@ -94,7 +94,7 @@ public class prestarLibro extends JFrame {
         isbnField.setText("");
     }
 
-    public void overwriteData(List<Libro> libros){
+    public void overWriteData(List<Libro> libros){
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("libros.txt"));

@@ -1,5 +1,6 @@
 package src.Form.menu;
 
+
 import src.models.Libro;
 
 import javax.swing.*;
@@ -9,10 +10,10 @@ import java.util.List;
 
 public class buscarLibro extends JFrame {
     private JTextField isbnField;
-    private JLabel isbn;
     private JButton buscarButton;
     private JPanel searchForm;
     private JLabel tituloBuscado;
+    private JLabel isbn;
     private JLabel autorBuscado;
     private JLabel categoriaBuscada;
     private JLabel paginasBuscada;

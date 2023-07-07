@@ -65,7 +65,7 @@ public class devolverLibro extends JFrame{
                         String apellido = usuario.getApellido();
                         String titulo = aux.getTitulo();
                         instanciaInicio.transaccionDevolucion(rut,nombre,apellido,isbn,titulo);
-                        overwriteData(libros);
+                        overWriteData(libros);
                         JOptionPane.showMessageDialog(returnForm,"Devolucion realizada con exito","Devolucion valida",JOptionPane.INFORMATION_MESSAGE);
                         clear();
                     }
@@ -92,7 +92,7 @@ public class devolverLibro extends JFrame{
         isbnField.setText("");
     }
 
-    public void overwriteData(List<Libro> libros){
+    public void overWriteData(List<Libro> libros){
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("libros.txt"));
