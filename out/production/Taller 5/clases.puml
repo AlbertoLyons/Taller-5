@@ -1,0 +1,184 @@
+@startuml
+package Form {
+    class inicioSesion {
+        - registerForm: JPanel
+        - rut: JPanel
+        - rutField: JTextField
+        - contrasenia: JLabel
+        - contraseniaField: JTextField
+        - iniciarSesionButton: JButton
+        - cerrarButton: JButton
+        - usuarios: List<Usuario>
+        - libros: List<Libro>
+        - usuarioIngresado: Usuario
+        - transacciones: List<TransaccionLibro>
+        + InicioSesion(usuarios: List<Usuario>, libros: List<Libro>)
+        + IniciarSesion(): void
+        + transaccionPrestamo(rut: String, nombre: String, apellido: String, isbn: String, tituloLibro: String): void
+        + transaccionDevolucion(rut: String, nombre: String, apellido: String, isbn: String, tituloLibro: String): void
+        + agregarLineaArchivoReservas(linea: String): void
+        + agregarLibro(libro: Libro): void
+        + clear(): void
+        + close(): void
+
+    }
+    class menuBiblioteca {
+        - menuForm: JPanel
+        - buscarLibroButton: JButton
+        - prestarLibroButton: JButton
+        - agregarNuevoLibroButton: JButton
+        - devolverLibroButton: JButton
+        - cerrarSesionButton: JButton
+        - txtMenu: JLabel
+        - buscarLibro: menu.buscarLibro
+        - librosList: List<Libro>
+        - transacciones: List<TransaccionLibro>
+        - usuario: Usuario
+        - instanciaInicio: inicioSesion
+        + menuBiblioteca(libros: List<Libro>, usuarioIngresado: Usuario, instanciaInicioSesion: inicioSesion)
+        + cerrarSesion(): void
+    }
+
+
+    package menu {
+        class agregarLibro {
+            - addForm: JPanel
+            - isbnField: JTextField
+            - tituloField: JTextField
+            - autorField: JTextField
+            - categoriaField: JTextField
+            - paginasField: JTextField
+            - stockField: JTextField
+            - agregarButton: JButton
+            - volverButton: JButton
+            - txtAgregar: JLabel
+            - libros: List<Libro>
+            + agregarLibro(libros: List<Libro>, instanciaInicio: inicioSesion)
+            + clear(): void
+            + existe(isbn: String): boolean
+            + escrituraLibroNuevo(libro: Libro): void
+        }
+        class buscarLibro {
+            - isbnField: JTextField
+            - buscarButton: JButton
+            - searchForm: JPanel
+            - tituloBuscado: JLabel
+            - isbn: JLabel
+            - autorBuscado: JLabel
+            - categoriaBuscada: JLabel
+            - paginasBuscada: JLabel
+            - copiasBuscada: JLabel
+            - LIMPIARButton: JButton
+            - volverButton: JButton
+            - txtBuscar: JLabel
+            - libros: List<Libro>
+            + buscarLibro(libros: List<Libro>)
+            + buscarIsbn(): void
+            + clearIsbn(): void
+            + clearAll(): void
+        }
+        class devolverLibro {
+        - returnForm: JPanel
+        - isbnField: JTextField
+        - devolverButton: JButton
+        - isbn: JLabel
+        - volverButton: JButton
+        - txtDevolver: JLabel
+        - libros: List<Libro>
+        - usuario: Usuario
+        - instanciaInicio: inicioSesion
+        - transacciones: List<TransaccionLibro>
+        + devolverLibro(libros: List<Libro>, usuario: Usuario, instanciaInicioSesion: inicioSesion)
+        + devolucionLibro(): void
+        + clear(): void
+        + overWriteData(libros: List<Libro>)
+        }
+        class prestarLibro {
+        - provideForm: JPanel
+        - isbn: JLabel
+        - isbnField: JTextField
+        - prestamoButton: JButton
+        - volverButton: JButton
+        - txtPrestar: JLabel
+        - libros: List<Libro>
+        - usuario: Usuario
+        - instanciaInicio: inicioSesion
+        + prestarLibro(libros: List<Libro>, usuarioIngresado: Usuario, instanciaInicioSesion: inicioSesion)
+        + prestamoLibro(): void
+        + clear(): void
+        + overWriteData(libros: List<Libro>): void
+
+        }
+    }
+}
+package models {
+    class Libro {
+    - isbn: String
+    - titulo: String
+    - autor: String
+    - categoria: String
+    - cantPaginas: int
+    - stock: int
+    + Libro(isbn: String, titulo: String, autor: String, categoria: String, cantPaginas: int, stock: int)
+    + get's()
+    + setStock(stock: int)
+    }
+    class TransaccionLibro {
+    - rut: String
+    - nombre: String
+    - apellido: String
+    - isbn: String
+    - tituloLibro: String
+    - tipoTransaccion: String
+    + TransaccionLibro(rut: String, nombre: String, apellido: String, isbn: String, tituloLibro: String, tipoTransaccion: String)
+    + get's()
+    + transaccionToString(transaccionLibro TransaccionLibro): String
+
+    }
+    class Usuario {
+    - rut: String
+    - nombre: String
+    - apellido: String
+    - contrasenia: String
+    + Usuario(rut: String, nombre: String, apellido: String, contrasenia: String)
+    + get's()
+    }
+}
+package services {
+    interface Sistema {
+    + inicioPrograma(): void
+    }
+    class SistemaImpl {
+    - inicioSesion: inicioSesion
+    - usuarios: List<Usuario>
+    - libros: List<Libro>
+    - reservas: List<String>
+    + SistemaImpl()
+    + leerArchivoLibros(): void
+    + leerArchivoUsuarios(): void
+    }
+}
+class LecturaArchivos {
++ leerArchivoLibros(): void
++ leerArchivoUsuarios(): void
+}
+
+SistemaImpl -|> Sistema
+SistemaImpl"1" -left> "1"LecturaArchivos : Lee archivos
+SistemaImpl"1" --down> "1"inicioSesion : Administra
+SistemaImpl"1" --up> "1"Usuario : Accede
+SistemaImpl"1" --up> "1"Libro : Accede
+
+inicioSesion"1" --down> "1"menuBiblioteca : Ingresa
+inicioSesion"1" -up-> "1..*"Usuario : Solicita datos
+
+menuBiblioteca"1" --down> "1"agregarLibro: Accede
+menuBiblioteca"1" --down> "1"buscarLibro : Accede
+menuBiblioteca"1" -down> "1"devolverLibro : Accede
+menuBiblioteca"1" -down> "1"prestarLibro : Accede
+
+agregarLibro"1" --up> "1"Libro : Agrega
+
+devolverLibro"1" -up> "1"TransaccionLibro : Agrega transaccion
+prestarLibro"1" -up> "1"TransaccionLibro : Agrega transaccion
+@enduml

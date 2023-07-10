@@ -16,18 +16,63 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 
 public class menuBiblioteca extends JFrame {
+
+    /**
+     * The menuForm
+     */
     private JPanel menuForm;
+
+    /**
+     * The buscarLibroButton
+     */
     private JButton buscarLibroButton;
+
+    /**
+     * The prestarLibroButton
+     */
     private JButton prestarLibroButton;
+
+    /**
+     * The agregarNuevoLibroButton
+     */
     private JButton agregarNuevoLibroButton;
+
+    /**
+     * The devolverLibroButton
+     */
     private JButton devolverLibroButton;
+
+    /**
+     * The cerrarSesionButton
+     */
     private JButton cerrarSesionButton;
+
+    /**
+     * The txtMenu
+     */
     private JLabel txtMenu;
-    private src.Form.menu.buscarLibro buscarLibro;
+
+    /**
+     * The lisbrosList
+     */
     private List<Libro> librosList;
-    private List<TransaccionLibro> transacciones;
+
+    /**
+     * The usuario
+     */
     private Usuario usuario;
+
+    /**
+     * The instanciaInicio
+     */
     private inicioSesion instanciaInicio;
+
+    /**
+     * The constructor
+     * @param libros
+     * @param usuarioIngresado
+     * @param instanciaInicioSesion
+     */
     public menuBiblioteca(List<Libro> libros, Usuario usuarioIngresado, inicioSesion instanciaInicioSesion) {
         this.librosList = libros;
         this.usuario = usuarioIngresado;
@@ -38,6 +83,7 @@ public class menuBiblioteca extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
+        // Codigo encargado de hacer que mientras se cierre esta ventana, se llame al subprograma cerrarSesion
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -45,6 +91,7 @@ public class menuBiblioteca extends JFrame {
             }
         });
 
+        // Boton para llamar a la interfaz de buscar libro
         buscarLibroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -59,6 +106,8 @@ public class menuBiblioteca extends JFrame {
                 buscarLibro.setVisible(true);
             }
         });
+
+        // Boton para llamar a la interfaz de prestar libro
         prestarLibroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,6 +122,8 @@ public class menuBiblioteca extends JFrame {
                 prestarLibro.setVisible(true);
             }
         });
+
+        // Boton para llamar a la interfaz de agregar libro
         agregarNuevoLibroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,6 +138,7 @@ public class menuBiblioteca extends JFrame {
                 agregarLibro.setVisible(true);
             }
         });
+        // Boton para llamar a la interfaz de devolver libro
         devolverLibroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -109,9 +161,15 @@ public class menuBiblioteca extends JFrame {
         });
     }
 
+    /**
+     * Cierra la sesion de manera correcta
+     */
     public void cerrarSesion(){
+        // Llama al subprograma del primer formulario que se encarga de limpiar los campos
         instanciaInicio.clear();
+        // Mensaje de "exito"
         JOptionPane.showMessageDialog(menuForm,"Sesion cerrada.");
+        // Cierra la ventana
         dispose();
     }
 }

@@ -10,16 +10,34 @@ import java.util.List;
 
 public class SistemaImpl implements Sistema{
 
+    /**
+     * The inicioSesion
+     */
     private inicioSesion inicioSesion;
+    /**
+     * The usuarios
+     */
     private List<Usuario> usuarios;
+    /**
+     * The libros
+     */
     private List<Libro> libros;
+    /**
+     * The reservas
+     */
     private List<String> reservas;
 
+    /**
+     * The constructor
+     */
     public SistemaImpl(){
         this.usuarios = new ArrayList<>();
         this.libros = new ArrayList<>();
     }
 
+    /**
+     * Lee el archivo "libros.txt" y los agrega a la lista libros
+     */
     public void leerArchivoLibros() {
 
         // Leer el archivo "libros.txt"
@@ -44,6 +62,9 @@ public class SistemaImpl implements Sistema{
         }
     }
 
+    /**
+     * Lee el archivo "usuarios.txt" y los agrega a la lista usuarios
+     */
     public void leerArchivoUsuarios() {
 
         // Leer el archivo "usuarios.txt"
@@ -65,16 +86,11 @@ public class SistemaImpl implements Sistema{
         }
     }
 
+    /**
+     * Inicia el programa llamando al creando una instancia del formulario inicioSesion
+     */
     @Override
     public void inicioPrograma() {
         this.inicioSesion = new inicioSesion(usuarios,libros);
-    }
-
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public List<Libro> getLibros() {
-        return libros;
     }
 }

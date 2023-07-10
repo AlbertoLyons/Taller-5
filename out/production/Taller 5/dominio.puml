@@ -1,0 +1,28 @@
+@startuml
+entity Usuario {
+Rut
+Nombre
+Apellido
+Contraseña
+}
+entity Libro {
+ISBN
+Titulo
+Autor
+Categoria
+Cantidad de paginas
+Stock
+}
+entity Reserva {
+Rut vendedor
+Nombre
+Apellido
+ISBN
+Nombre Libro
+Tipo de transaccion
+}
+note bottom of Usuario : El usuario tiene que iniciar sesion\nen el sistema para poder agregar,\nbuscar, prestar o devolver un libro
+note right of Reserva : El estado de la reserva puede ser\nprestamo o devolucion
+Usuario "1" -> "*" Reserva : Realiza
+Reserva "1" --> "1" Libro : Reserva
+@enduml
